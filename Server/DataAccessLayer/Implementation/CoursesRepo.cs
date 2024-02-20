@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementation
 {
-    internal class CoursesRepo : ICouresesRepo
+    public class CoursesRepo : ICoursesRepo
     {
         CoursesContext context;
         public CoursesRepo(CoursesContext context)
@@ -33,9 +33,13 @@ namespace DataAccessLayer.Implementation
             }
         }
 
-        public Task<Course> DeleteAsync(int id)
+        public async Task<Course> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            Course c = context.Courses.FirstOrDefault(c => c.CourseId == id);
+            if (c != null)
+                context.Courses.Remove(c);
+            context.SaveChanges();
+            return c;
         }
 
         public async Task<PagedList<Course>> GetAllAsync(BaseQueryParams queryParams)
@@ -57,13 +61,15 @@ namespace DataAccessLayer.Implementation
             }
         }
 
-        /*public Task<Course>? UpdateAsync(int id, Course entity)
+        public async Task<Course> UpdateAsync(int id, Course entity)
         {
-            *//*Course course = context.Courses.FirstOrDefault(c => c.CourseId == id);
+            Course? course = context.Courses.FirstOrDefault(c => c.CourseId == id);
             if (course != null)
+            {
                 course = entity;
-            context.SaveChanges();
-            return course;*//*
-        }*/
+                context.SaveChanges();
+            }
+            return course; 
+        }
     }
 }

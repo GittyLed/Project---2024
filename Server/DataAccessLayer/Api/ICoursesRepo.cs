@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Api;
-internal interface ICouresesRepo : IRepository<Course>
+public interface ICoursesRepo : IRepository<Course>
 {
 
 }
