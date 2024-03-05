@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementation;
 
-internal class UserRepo: IUserRepo
+public class UserRepo: IUserRepo
 {
     CoursesContext context;
     public UserRepo(CoursesContext context)
