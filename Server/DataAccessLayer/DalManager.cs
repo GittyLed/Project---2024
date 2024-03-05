@@ -12,15 +12,15 @@ public class DalManager
 {
     public CoursesRepo Courses { get; set; }
     public TeachersRepo Teachers { get; set; }
-    public UserRepo User { get; set; }
-    public FieldRepo Field { get; set; }
+    public UserRepo Users { get; set; }
+    public FieldRepo Fields { get; set; }
     public DalManager()
     {
         CoursesContext database = new CoursesContext();
         Courses = new CoursesRepo(database);
         Teachers = new TeachersRepo(database);
-        User = new UserRepo(database);
-        Field = new FieldRepo(database);
+        Users = new UserRepo(database);
+        Fields = new FieldRepo(database);
     }
 
 }

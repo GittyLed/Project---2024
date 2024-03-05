@@ -28,13 +28,13 @@ public class UserRepoBl : IUserRepoBl
         newUser.Name = user.FirstName + " " + user.LastName;
         newUser.Email = user.Email;
         newUser.Password = user.Password;
-        await dal.User.AddAsync(newUser);
+        await dal.Users.AddAsync(newUser);
         return newUser;
     }
 
     public List<UserBl> GetUsers(BaseQueryParams queryParams)
     {
-        Task<PagedList<User>> users = dal.User.GetAllAsync(queryParams);
+        Task<PagedList<User>> users = dal.Users.GetAllAsync(queryParams);
         List<UserBl> usersList = new List<UserBl>();
         foreach (var user in users.Result)
         {
@@ -43,13 +43,14 @@ public class UserRepoBl : IUserRepoBl
             newUser.LastName = user.Name.Split(" ")[1];
             newUser.Email = user.Email;
             newUser.Password = user.Password;
+            usersList.Add(newUser);
         }
         return usersList;
     }
 
     public UserBl GetById(int id)
     {
-        Task<User> user = dal.User.GetSingleAsync(id);
+        Task<User> user = dal.Users.GetSingleAsync(id);
         UserBl newUser = new UserBl();
         newUser.FirstName = user.Result.Name.Split(' ')[0];
         newUser.LastName = user.Result.Name.Split(" ")[1];
