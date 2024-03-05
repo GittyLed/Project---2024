@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Implementation;
 
-internal class FieldRepo : IFieldRepo
+public class FieldRepo : IFieldRepo
 {
     CoursesContext context;
     public FieldRepo(CoursesContext context)
