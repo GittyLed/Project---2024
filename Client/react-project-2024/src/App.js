@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Fetch from './Fetch';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <Fetch></Fetch>
         </a>
+
       </header>
     </div>
   );
