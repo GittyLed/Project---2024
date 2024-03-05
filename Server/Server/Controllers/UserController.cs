@@ -3,6 +3,7 @@ using BusinessLogicLayer.Models;
 using Common;
 using DataAccessLayer;
 using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,18 +15,18 @@ namespace Server.Controllers
     {
         BlManager BlManager;
         DalManager DalManager;
-        public UserController(BlManager BlManager, DalManager DalManager )
+        public UserController(BlManager BlManager, DalManager DalManager)
         {
             this.BlManager = BlManager;
             this.DalManager = DalManager;
         }
-
+        [EnableCors]
         [HttpGet]
         public List<UserBl> GetUsers([FromQuery] BaseQueryParams queryParams)
         {
             return BlManager.UserRepoBl.GetUsers(queryParams);
         }
-
+        [EnableCors]
         [HttpGet("{id}")]
         public UserBl GetUserById(int id)
         {

@@ -6,12 +6,25 @@ using DBAccess;
 using DataAccessLayer.Models;
 using BusinessLogicLayer;
 using DataAccessLayer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICoursesRepo, CoursesRepo>();
 builder.Services.AddScoped<BlManager, BlManager>();
 builder.Services.AddScoped<DalManager, DalManager>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORSPolicy",
+        builder =>
+        {
+            builder
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyOrigin();
+        });
+});
 
 
 DBActions actions = new DBActions(builder.Configuration);
@@ -21,6 +34,7 @@ builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(co
 
 var app = builder.Build();
 
+app.UseCors("CORSPolicy");
 app.MapControllers();
 
 app.Run();
