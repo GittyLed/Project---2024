@@ -6,6 +6,10 @@ namespace DataAccessLayer.Models;
 
 public partial class CoursesContext : DbContext
 {
+    public CoursesContext()
+    {
+    }
+
     public CoursesContext(DbContextOptions<CoursesContext> options)
         : base(options)
     {
@@ -19,6 +23,10 @@ public partial class CoursesContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\Project\\Project---2024\\Database\\CoursesDB.mdf;Integrated Security=True;Connect Timeout=30");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Course>(entity =>
@@ -27,6 +35,7 @@ public partial class CoursesContext : DbContext
 
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
             entity.Property(e => e.CourseName)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.FieldId).HasColumnName("FieldID");
@@ -54,12 +63,15 @@ public partial class CoursesContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
             entity.Property(e => e.Email)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.PhoneNumber)
+                .IsRequired()
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
@@ -75,12 +87,15 @@ public partial class CoursesContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Email)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Password)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false);
         });
