@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Fetch from './Fetch';
+import Registration from './Registration';
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <Fetch></Fetch>
+        <Registration></Registration>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -17,7 +20,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-          <Fetch></Fetch>
+          
         </a>
 
       </header>

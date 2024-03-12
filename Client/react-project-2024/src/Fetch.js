@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 const Fetch = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:5217/api/user/1')
+    fetch('http://localhost:5217/api/user')
       .then((res) => {
         return res.json();
       })
@@ -12,9 +12,7 @@ const Fetch = () => {
       });
   }, []);
   return (
-    <div>
-      {users.firstName + users.email}
-    </div>
+    users.map(user => (<div>{user.firstName}: {user.email}</div>))
   );
 };
 export default Fetch;
