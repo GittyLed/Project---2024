@@ -9,10 +9,9 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<BlManager>();
 builder.Services.AddControllers();
-builder.Services.AddScoped<ICoursesRepo, CoursesRepo>();
-builder.Services.AddScoped<BlManager, BlManager>();
-builder.Services.AddScoped<DalManager, DalManager>();
+
 
 builder.Services.AddCors(options =>
 {

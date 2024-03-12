@@ -1,5 +1,7 @@
-﻿using DataAccessLayer.Implementation;
+﻿using DataAccessLayer.Api;
+using DataAccessLayer.Implementation;
 using DataAccessLayer.Models;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +12,25 @@ namespace DataAccessLayer;
 
 public class DalManager
 {
-    public CoursesRepo Courses { get; set; }
-    public TeachersRepo Teachers { get; set; }
-    public UserRepo Users { get; set; }
-    public FieldRepo Fields { get; set; }
+    public CoursesRepo Courses { get;}
+    public TeachersRepo Teachers { get;}
+    public UserRepo Users { get;}
+    public FieldRepo Fields { get;}
     public DalManager()
     {
-        CoursesContext database = new CoursesContext();
-        Courses = new CoursesRepo(database);
-        Teachers = new TeachersRepo(database);
-        Users = new UserRepo(database);
-        Fields = new FieldRepo(database);
+        ServiceCollection services = new();
+        services.AddDbContext<CoursesContext>();
+        services.AddScoped<ICoursesRepo, CoursesRepo>();
+        services.AddScoped<ITeacherRepo, TeachersRepo>();
+        services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IFieldRepo, FieldRepo>();
+
+        ServiceProvider servicesProvider = services.BuildServiceProvider();
+        
+        Courses = (CoursesRepo)servicesProvider.GetRequiredService<ICoursesRepo>();
+        Teachers =(TeachersRepo) servicesProvider.GetRequiredService<ITeacherRepo>();
+        Users = (UserRepo) servicesProvider.GetRequiredService<IUserRepo>();
+        Fields = (FieldRepo) servicesProvider.GetRequiredService<IFieldRepo>();
     }
 
 }

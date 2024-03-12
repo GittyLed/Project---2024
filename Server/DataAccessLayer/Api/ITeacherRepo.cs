@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Api
 {
-    internal interface ITeacherRepo : IRepository<Teacher>
+    public interface ITeacherRepo : IRepository<Teacher>
     {
     }
 }
