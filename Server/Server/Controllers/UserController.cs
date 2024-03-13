@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Implementation;
 using BusinessLogicLayer.Models;
 using Common;
 using DataAccessLayer;
@@ -13,24 +14,22 @@ namespace Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        BlManager BlManager;
-        DalManager DalManager;
-        public UserController(BlManager BlManager, DalManager DalManager)
+        UserRepoBl users;
+        public UserController(BlManager BlManager)
         {
-            this.BlManager = BlManager;
-            this.DalManager = DalManager;
+            users = BlManager.UserRepoBl;
         }
         [EnableCors]
         [HttpGet]
         public List<UserBl> GetUsers([FromQuery] BaseQueryParams queryParams)
         {
-            return BlManager.UserRepoBl.GetUsers(queryParams);
+            return users.GetUsers(queryParams);
         }
         [EnableCors]
         [HttpGet("{id}")]
         public UserBl GetUserById(int id)
         {
-            return BlManager.UserRepoBl.GetById(id);
+            return users.GetById(id);
         }
 
 

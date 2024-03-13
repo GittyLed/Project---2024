@@ -16,10 +16,10 @@ namespace BusinessLogicLayer.Implementation;
 
 public class UserRepoBl : IUserRepoBl
 {
-    DalManager dal;
-    public UserRepoBl()
+    UserRepo users;
+    public UserRepoBl(DalManager dalManager)
     {
-        dal = new DalManager();
+        users = dalManager.Users;
     }
 
     public async Task<User> AddUser(UserBl user)
@@ -28,15 +28,15 @@ public class UserRepoBl : IUserRepoBl
         newUser.Name = user.FirstName + " " + user.LastName;
         newUser.Email = user.Email;
         newUser.Password = user.Password;
-        await dal.Users.AddAsync(newUser);
+        await users.AddAsync(newUser);
         return newUser;
     }
 
     public List<UserBl> GetUsers(BaseQueryParams queryParams)
     {
-        Task<PagedList<User>> users = dal.Users.GetAllAsync(queryParams);
+        Task<PagedList<User>> pagedUsers = users.GetAllAsync(queryParams);
         List<UserBl> usersList = new List<UserBl>();
-        foreach (var user in users.Result)
+        foreach (var user in pagedUsers.Result)
         {
             UserBl newUser = new UserBl();
             newUser.FirstName = user.Name.Split(' ')[0];
@@ -50,7 +50,7 @@ public class UserRepoBl : IUserRepoBl
 
     public UserBl GetById(int id)
     {
-        Task<User> user = dal.Users.GetSingleAsync(id);
+        Task<User> user = users.GetSingleAsync(id);
         UserBl newUser = new UserBl();
         newUser.FirstName = user.Result.Name.Split(' ')[0];
         newUser.LastName = user.Result.Name.Split(" ")[1];
