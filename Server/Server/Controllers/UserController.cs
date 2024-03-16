@@ -31,6 +31,12 @@ namespace Server.Controllers
         {
             return users.GetById(id);
         }
+        [EnableCors]
+        [HttpPost]
+        public User AddUser([FromBody] UserBl user)
+        {
+            return users.AddUser(user).Result;
+        }
 
 
         /*[HttpGet]
