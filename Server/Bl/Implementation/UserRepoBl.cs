@@ -25,7 +25,7 @@ public class UserRepoBl : IUserRepoBl
     public async Task<User> AddUser(UserBl user)
     {
         User newUser = new User();
-        newUser.Name = user.FirstName + " " + user.LastName;
+        newUser.Name = user.Name;
         newUser.Email = user.Email;
         newUser.Password = user.Password;
         await users.AddAsync(newUser);
@@ -39,8 +39,7 @@ public class UserRepoBl : IUserRepoBl
         foreach (var user in pagedUsers.Result)
         {
             UserBl newUser = new UserBl();
-            newUser.FirstName = user.Name.Split(' ')[0];
-            newUser.LastName = user.Name.Split(" ")[1];
+            newUser.Name = user.Name;
             newUser.Email = user.Email;
             newUser.Password = user.Password;
             usersList.Add(newUser);
@@ -52,8 +51,7 @@ public class UserRepoBl : IUserRepoBl
     {
         Task<User> user = users.GetSingleAsync(id);
         UserBl newUser = new UserBl();
-        newUser.FirstName = user.Result.Name.Split(' ')[0];
-        newUser.LastName = user.Result.Name.Split(" ")[1];
+        newUser.Name = user.Result.Name;
         newUser.Email = user.Result.Email;
         newUser.Password = user.Result.Password;
         return newUser;
