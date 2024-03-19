@@ -1,67 +1,44 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import axios from 'axios'
 
 
 export default function Registration() {
     // const navigate = useNavigate();
     const userName = useRef();
     const password = useRef();
-    const phone = useRef();
+    const email = useRef();
     const [newUser, setNewUser] = useState({
         name: null,
-        lastName: 'Cohen',
-        pass: null,
-        phoneNum: 0
+        email: null,
+        password: null
     });
-    const changeColor = () => {
-        phone.current.style.backgroundColor = "red"
-        if (phone.current.value.length == 10) {
-            phone.current.style.backgroundColor = "green";
-        }
-        else {
-            phone.current.style.backgroundColor = "red"
-        }
-    }
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
 
     // const onSuccess = (data) => {navigate(`/HomePage/${data.userName}/${data.password}`)}
     const onSuccess = (data) => {
-        setNewUser(newUser.name = data.userName, newUser.pass = data.password, newUser.phoneNum = data.phone);
+        setNewUser(newUser.name = data.userName, newUser.password = data.password, newUser.email = data.email);
         console.log(newUser);
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body:{
-                "firstName": "Gitty",
-                "lastName": "Ledereich",
-                "email": "gled9565@gmail.com",
-                "password": "gled9565"
-            }
+        console.log(JSON.stringify(newUser));
+        const options = {
+            headers: { 'Content-Type': 'application/json' }
         };
 
-        fetch('http://localhost:5217/api/user', requestOptions)
-            .then(response => response.json())
-        // .then(data => this.setState({ postId: data.id }));
+        axios.post('http://localhost:5217/api/user', JSON.stringify(newUser), options)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
     }
-
-    // fetch('http://localhost:5217/api/user', 'POST')
-    //     .then((res) => {
-    //         return res.json();
-    //     })
-    //     .then((data) => {
-    //         console.log(data);
-    //         setUsers(data);
-    //     });
-
-    // return (
-    //     users.map(user => (<div>{user.firstName}: {user.email}</div>))
-    // );
-    // };
 
     const onFailed = (error) => { console.log("form failed", error) }
 
@@ -80,8 +57,8 @@ export default function Registration() {
                 message: "password should be at least 6 digits"
             }
         },
-        phone: {
-            required: "num is required."
+        email: {
+            required: "email is required."
         }
     }
     return (
@@ -93,7 +70,7 @@ export default function Registration() {
                 <input type="password" ref={password} name="password" placeholder="enter password" {...register("password", requirments.password)}></input>
                 <small style={{ color: "red" }}>{errors?.password && errors.password.message}</small>
                 <br></br>
-                <input ref={phone} name="phone" placeholder="enter phone number" onChange={(e) => changeColor()}{...register("phone", requirments.phone)} ></input>
+                <input ref={email} name="email" placeholder="enter your email" {...register("email", requirments.email)} ></input>
                 <center>
                     <button>Submit</button>
                 </center>
