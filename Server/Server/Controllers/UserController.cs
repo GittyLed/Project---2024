@@ -25,12 +25,19 @@ namespace Server.Controllers
         {
             return users.GetUsers(queryParams);
         }
-        [EnableCors]
+       /* [EnableCors]
         [HttpGet("{id}")]
         public UserBl GetUserById(int id)
         {
             return users.GetById(id);
+        }*/
+
+        [HttpGet("{name}")]
+        public UserBl GetUserByNmae(string name)
+        {
+            return users.GetUserByName(name);
         }
+
         [EnableCors]
         [HttpPost]
         public User AddUser([FromBody] UserBl user)

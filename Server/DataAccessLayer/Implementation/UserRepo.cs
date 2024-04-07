@@ -49,6 +49,19 @@ public class UserRepo: IUserRepo
          return PagedList<User>.ToPagedList(queryable, queryParams.PageNumber, queryParams.PageSize);
     }
 
+    public User GetByName(string username)
+    {
+        try
+        {
+            return context.Users.Where(user => user.Name == username).FirstOrDefault();
+        }
+        catch 
+        {
+            throw new Exception($"no user with this username found");
+        }
+        
+    }
+
     public async Task<User> GetSingleAsync(int id)
     {
         try

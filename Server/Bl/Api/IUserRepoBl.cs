@@ -11,4 +11,5 @@ namespace BusinessLogicLayer.Api;
 public interface IUserRepoBl
 {
     public Task<User> AddUser(UserBl user);
+    UserBl GetUserByName(string name);
 }

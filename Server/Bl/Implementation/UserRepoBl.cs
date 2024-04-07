@@ -57,5 +57,17 @@ public class UserRepoBl : IUserRepoBl
         return newUser;
     }
 
+    public UserBl GetUserByName(string name)
+    {
+        User user = users.GetByName(name);
+        UserBl newUser = new UserBl();
+        newUser.Name = user.Name;
+        newUser.Email = user.Email;
+        newUser.Password = user.Password;
+        return newUser;
+    }
+
+    
+
 
 }

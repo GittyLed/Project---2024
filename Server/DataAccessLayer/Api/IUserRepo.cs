@@ -9,5 +9,6 @@ namespace DataAccessLayer.Api
 {
     public interface IUserRepo : IRepository<User>
     {
+        User GetByName(string username);
     }
 }
