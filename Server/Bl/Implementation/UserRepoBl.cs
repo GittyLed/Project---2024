@@ -60,6 +60,10 @@ public class UserRepoBl : IUserRepoBl
     public UserBl GetUserByName(string name)
     {
         User user = users.GetByName(name);
+        if(user == null)
+        {
+            return null;
+        }
         UserBl newUser = new UserBl();
         newUser.Name = user.Name;
         newUser.Email = user.Email;

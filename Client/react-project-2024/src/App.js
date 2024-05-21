@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Fetch from './Fetch';
 import Registration from './Registration';
+import Login from './Login';
 
 function App() {
   return (
@@ -11,8 +12,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <Fetch></Fetch>
+        {/* <Fetch></Fetch> */}
         <Registration></Registration>
+        {/* <Login></Login> */}
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -20,7 +22,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-          
+
         </a>
 
       </header>

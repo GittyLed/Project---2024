@@ -9,6 +9,7 @@ export default function Registration() {
     const userName = useRef();
     const password = useRef();
     const email = useRef();
+    const userExist = useRef();
     const [newUser, setNewUser] = useState({
         name: null,
         email: null,
@@ -17,9 +18,30 @@ export default function Registration() {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-
     // const onSuccess = (data) => {navigate(`/HomePage/${data.userName}/${data.password}`)}
     const onSuccess = (data) => {
+        axios.get(`http://localhost:5217/api/user/${data.userName}`)
+            .then((response) => {
+                if(response.status == 200){
+                    userExist.current = true;
+                }
+            })
+            .catch((error) => {
+                userExist.current = false;
+            })
+            .finally(function () {
+                if(!userExist.current){
+                    AddUser(data);
+                }
+                else{
+                    console.log("pls login");
+                }
+                
+            });
+        
+        
+    }
+    function AddUser(data){
         setNewUser(newUser.name = data.userName, newUser.password = data.password, newUser.email = data.email);
         console.log(newUser);
         console.log(JSON.stringify(newUser));
@@ -61,6 +83,7 @@ export default function Registration() {
             required: "email is required."
         }
     }
+    
     return (
         <>
             <form onSubmit={handleSubmit(onSuccess, onFailed)}>

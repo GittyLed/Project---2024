@@ -6,6 +6,7 @@ using DataAccessLayer;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Controllers
@@ -33,9 +34,11 @@ namespace Server.Controllers
         }*/
 
         [HttpGet("{name}")]
-        public UserBl GetUserByNmae(string name)
+        public ActionResult< UserBl> GetUserByName(string name)
         {
-            return users.GetUserByName(name);
+            UserBl user =  users.GetUserByName(name);
+            if(user == null) return BadRequest("user not found");
+            return Ok(user);
         }
 
         [EnableCors]

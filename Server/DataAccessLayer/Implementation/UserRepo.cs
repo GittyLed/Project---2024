@@ -53,11 +53,11 @@ public class UserRepo: IUserRepo
     {
         try
         {
-            return context.Users.Where(user => user.Name == username).FirstOrDefault();
+            return context.Users.Where(user => user.Name == username).First();
         }
         catch 
         {
-            throw new Exception($"no user with this username found");
+            return null;
         }
         
     }
