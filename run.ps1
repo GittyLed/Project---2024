@@ -1,3 +1,6 @@
+#update from git
+git pull
+
 # Change to the directory of your C# server
 Set-Location "./Server"
 
