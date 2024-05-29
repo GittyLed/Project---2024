@@ -1,6 +1,6 @@
-Scaffold-DbContext 'Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\Project\Project---2024\Database\CoursesDB.mdf;Integrated Security=True;Connect Timeout=30' Microsoft.EntityFrameworkCore.SqlServer –Context CoursesContext -OutputDir Models  -Force -NoOnConfiguring
+Scaffold-DbContext 'Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\c#ôøåé÷è\Project---2024\Database\CoursesDB.mdf;Integrated Security=True;Connect Timeout=30' Microsoft.EntityFrameworkCore.SqlServer –Context CoursesContext -OutputDir Models  -Force -NoOnConfiguring
 
 
-Scaffold-DbContext 'Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\Project\Project---2024\Database\CoursesDB.mdf;Integrated Security=True;Connect Timeout=30' Microsoft.EntityFrameworkCore.SqlServer –Context CoursesContext -OutputDir Models  -Force
+
 
 

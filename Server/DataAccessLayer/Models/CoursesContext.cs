@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccessLayer.Models;
 
 public partial class CoursesContext : DbContext
 {
-
     public CoursesContext(DbContextOptions<CoursesContext> options)
         : base(options)
     {
@@ -31,7 +29,8 @@ public partial class CoursesContext : DbContext
             entity.Property(e => e.CourseName)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.FieldId).HasColumnName("FieldID");
 
             entity.HasOne(d => d.Field).WithMany(p => p.Courses)
@@ -47,7 +46,8 @@ public partial class CoursesContext : DbContext
             entity.Property(e => e.FieldId).HasColumnName("FieldID");
             entity.Property(e => e.FieldName)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
         });
 
         modelBuilder.Entity<Teacher>(entity =>
@@ -56,23 +56,26 @@ public partial class CoursesContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.CourseId).HasColumnName("CourseID");
-            entity.Property(e => e.Email)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(10)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Teachers)
                 .HasForeignKey(d => d.CourseId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TeacherCourse");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Teachers)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_userTeacher");
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -83,15 +86,18 @@ public partial class CoursesContext : DbContext
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(20)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .UseCollation("SQL_Latin1_General_CP1_CI_AS");
         });
 
         OnModelCreatingPartial(modelBuilder);
