@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Api;
 using DataAccessLayer.Implementation;
 using DataAccessLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,10 @@ public class DalManager
     public TeachersRepo Teachers { get;}
     public UserRepo Users { get;}
     public FieldRepo Fields { get;}
-    public DalManager()
+    public DalManager(string connString)
     {
         ServiceCollection services = new();
-        services.AddDbContext<CoursesContext>();
+        services.AddDbContext<CoursesContext>(op => op.UseSqlServer(connString));
         services.AddScoped<ICoursesRepo, CoursesRepo>();
         services.AddScoped<ITeacherRepo, TeachersRepo>();
         services.AddScoped<IUserRepo, UserRepo>();

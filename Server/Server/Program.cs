@@ -9,7 +9,7 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<BlManager>();
+
 builder.Services.AddControllers();
 
 
@@ -28,7 +28,8 @@ builder.Services.AddCors(options =>
 
 DBActions actions = new DBActions(builder.Configuration);
 var connString = actions.GetConnectionString("CoursesDB");
-builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(connString));
+//builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(connString));
+builder.Services.AddScoped(b => new BlManager(connString));
 
 
 var app = builder.Build();
