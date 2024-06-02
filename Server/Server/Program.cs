@@ -21,14 +21,13 @@ builder.Services.AddCors(options =>
             builder
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowAnyOrigin();
+            .WithOrigins("http://localhost:3000");
         });
 });
 
 
 DBActions actions = new DBActions(builder.Configuration);
 var connString = actions.GetConnectionString("CoursesDB");
-//builder.Services.AddDbContext<CoursesContext>(options => options.UseSqlServer(connString));
 builder.Services.AddScoped(b => new BlManager(connString));
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Api;
 
-public interface IUserRepoBl
+public interface IUserBlRepo
 {
     public Task<User> AddUser(UserBl user);
     UserBl GetUserByName(string name);

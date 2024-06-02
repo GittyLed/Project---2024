@@ -13,13 +13,14 @@ namespace BusinessLogicLayer;
 
 public class BlManager
 {
-    public UserRepoBl UserRepoBl { get;}
+    public UserBlRepo UserBlRepo { get;}
     public BlManager(string connString)
     {
         ServiceCollection services = new();
         services.AddScoped(d => new DalManager(connString));
-        services.AddScoped<IUserRepoBl, UserRepoBl>();
+        services.AddScoped<IUserBlRepo, UserBlRepo>();
+        services.AddScoped<IAuthUser, AuthUser>();
         ServiceProvider servicesProvider = services.BuildServiceProvider();
-        UserRepoBl = (UserRepoBl)servicesProvider.GetRequiredService<IUserRepoBl>();
+        UserBlRepo = (UserBlRepo)servicesProvider.GetRequiredService<IUserBlRepo>();
     }
 }

@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Implementation;
 
-public class UserRepoBl : IUserRepoBl
+public class UserBlRepo : IUserBlRepo
 {
     UserRepo users;
-    public UserRepoBl(DalManager dalManager)
+    public UserBlRepo(DalManager dalManager)
     {
         users = dalManager.Users;
     }

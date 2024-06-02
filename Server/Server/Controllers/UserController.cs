@@ -15,10 +15,10 @@ namespace Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        UserRepoBl users;
+        UserBlRepo users;
         public UserController(BlManager BlManager)
         {
-            users = BlManager.UserRepoBl;
+            users = BlManager.UserBlRepo;
         }
         [EnableCors]
         [HttpGet]
