@@ -17,9 +17,11 @@ namespace BusinessLogicLayer.Implementation;
 public class UserBlRepo : IUserBlRepo
 {
     UserRepo users;
-    public UserBlRepo(DalManager dalManager)
+    IEmailService emailService;
+    public UserBlRepo(DalManager dalManager, IEmailService emailService)
     {
         users = dalManager.Users;
+        this.emailService = emailService;
     }
 
     public async Task<User> AddUser(UserBl user)
@@ -29,6 +31,7 @@ public class UserBlRepo : IUserBlRepo
         newUser.Email = user.Email;
         newUser.Password = user.Password;
         await users.AddAsync(newUser);
+        await emailService.SendWelcomeEmail(user.Email);
         return newUser;
     }
 

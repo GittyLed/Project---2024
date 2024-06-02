@@ -20,6 +20,7 @@ public class BlManager
         services.AddScoped(d => new DalManager(connString));
         services.AddScoped<IUserBlRepo, UserBlRepo>();
         services.AddScoped<IAuthUser, AuthUser>();
+        services.AddScoped<IEmailService, EmailService>();
         ServiceProvider servicesProvider = services.BuildServiceProvider();
         UserBlRepo = (UserBlRepo)servicesProvider.GetRequiredService<IUserBlRepo>();
     }
