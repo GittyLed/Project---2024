@@ -7,49 +7,45 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicLayer.Implementation
+namespace BusinessLogicLayer.Implementation;
+
+public class EmailService : IEmailService
 {
-    public class EmailService : IEmailService
+    public async Task SendWelcomeEmail(string emailAddress)
     {
-        public async Task SendWelcomeEmail(string emailAddress)
-        {
-            // Configure the SMTP client
-            using (var smtpClient = new SmtpClient("smtp.gmail.com"))
-            {
-                // Set credentials if required
-                smtpClient.Port = 587;
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("gled9565@gmail.com", "password");
-                smtpClient.EnableSsl = true;
+        using var smtpClient = new SmtpClient("smtp.office365.com", 587);
 
-                // Create the email message
-                var message = new MailMessage();
-                message.To.Add(emailAddress);
-                message.Subject = "Welcome to our platform!";
-                message.Body = "Thank you for signing up.";
+        // Set credentials if required
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new NetworkCredential("hand3c23@mbjcomp.org.il", "Gitty9565");
+        smtpClient.EnableSsl = true;
 
-                // Send the email asynchronously
-                await smtpClient.SendMailAsync(message);
-            }
-        }
+        // Create the email message
+        var message = new MailMessage();
+        message.From = new MailAddress("hand3c23@mbjcomp.org.il");
+        message.To.Add(emailAddress);
+        message.Subject = "Welcome to our platform!";
+        message.Body = "Thank you for signing up.";
+        message.IsBodyHtml = true;
 
-        public async Task SendEmailAsync(string to, string subject, string body)
-        {
-            var message = new MailMessage();
-            message.From = new MailAddress("gled9565@gmail.com");
-            message.To.Add(to);
-            message.Subject = subject;
-            message.Body = body;
-            message.IsBodyHtml = true; // Set to true if the body is in HTML format
+        // Send the email asynchronously
+        await smtpClient.SendMailAsync(message);
+    }
 
-            using (var smtpClient = new SmtpClient("smtp.gmail.com"))
-            {
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("gled9565@gmail.com", "password");
-                smtpClient.EnableSsl = true; // Enable SSL if required by your SMTP server
+    public async Task SendEmailAsync(string to, string subject, string body)
+    {
+        var message = new MailMessage();
+        message.From = new MailAddress("hand3c23@mbjcomp.org.il");
+        message.To.Add(to);
+        message.Subject = subject;
+        message.Body = body;
+        message.IsBodyHtml = true;
 
-                await smtpClient.SendMailAsync(message); // This line sends the email asynchronously
-            }
-        }
+        using var smtpClient = new SmtpClient("smtp.office365.com", 587);
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new NetworkCredential("hand3c23@mbjcomp.org.il", "Gitty9565");
+        smtpClient.EnableSsl = true;
+
+        await smtpClient.SendMailAsync(message);
     }
 }
