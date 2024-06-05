@@ -13,7 +13,7 @@ namespace BusinessLogicLayer.Implementation
 {
     public class AuthUser : IAuthUser
     {
-        IUserBlRepo users;
+        protected IUserBlRepo users;
         public AuthUser(IUserBlRepo userBlRepo)
         {
             this.users = userBlRepo;   
@@ -37,6 +37,14 @@ namespace BusinessLogicLayer.Implementation
             //what to return user or userbl
             //return await users.AddUser(user);
             return user;
+        }
+
+        public async Task<bool> UserExists(string username)
+        {
+            if(users.GetUserByName(username) != null)
+                return true;
+            return false;
+
         }
 
         /*public string GenerateToken(UserBl user)

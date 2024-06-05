@@ -12,6 +12,7 @@ namespace BusinessLogicLayer.Api
     {
         Task<UserBl> AuthenticateUserAsync(string username, string password);
         Task<UserBl> CreateUserAsync(string username, string password, string email);
+        Task<bool> UserExists(string username);
         //string GenerateToken(UserBl user);
     }
 }

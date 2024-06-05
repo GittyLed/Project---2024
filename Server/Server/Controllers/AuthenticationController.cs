@@ -44,6 +44,9 @@ namespace Server.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userExists = await authUser.UserExists(model.Username);
+                if (userExists)
+                    return BadRequest("username exists");
                 
                 var user = await authUser.CreateUserAsync(model.Username, model.Password, model.Email);
 
