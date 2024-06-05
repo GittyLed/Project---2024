@@ -20,55 +20,62 @@ export default function Registration() {
 
     // const onSuccess = (data) => {navigate(`/HomePage/${data.userName}/${data.password}`)}
     const onSuccess = (data) => {
-        axios.get(`http://localhost:5217/api/user/${data.userName}`)
-            .then((response) => {
-                if(response.status == 200){
-                    userExist.current = true;
-                }
-            })
-            .catch((error) => {
-                userExist.current = false;
-            })
-            .finally(function () {
-                if(!userExist.current){
-                    AddUser(data);
-                }
-                else{
-                    console.log("pls login");
-                }
-                
-            });
-        
-        
-    }
-    function AddUser(data){
-        setNewUser(newUser.name = data.userName, newUser.password = data.password, newUser.email = data.email);
-        console.log(newUser);
-        console.log(JSON.stringify(newUser));
+        setNewUser(newUser.username = data.userName, newUser.password = data.password, newUser.email = data.email);
         const options = {
             headers: { 'Content-Type': 'application/json' }
         };
-
-        axios.post('http://localhost:5217/api/user', JSON.stringify(newUser), options)
-            .then(function (response) {
-                console.log(response);
+        axios.post(`http://localhost:5217/api/Authentication/register`, JSON.stringify(newUser), options)
+            .then((response) => {
+                console.log("user signed up")
+                // user signed up 
             })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
+            .catch((error) => {
+                console.log("hi");
+                console.log(error.response.data);
+                userExist.current = false;
             })
             .finally(function () {
-                // always executed
+                if (!userExist.current) {
+                    //AddUser(data);
+                }
+                else {
+                    //console.log("pls login");
+                }
+
             });
+
+
     }
+    // function AddUser(data){
+    //     setNewUser(newUser.name = data.userName, newUser.password = data.password, newUser.email = data.email);
+    //     console.log(newUser);
+    //     console.log(JSON.stringify(newUser));
+    //     const options = {
+    //         headers: { 'Content-Type': 'application/json' }
+    //     };
 
-    const onFailed = (error) => { console.log("Form submission failed:", error);
-    console.log("Form errors:", errors); // Log errors object
+    //     axios.post('http://localhost:5217/api/user', JSON.stringify(newUser), options)
+    //         .then(function (response) {
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //         })
+    //         .finally(function () {
+    //             // always executed
+    //         });
+    // }
 
-    // Additional console logs to debug errors object
-    console.log("Username error:", errors.userName);
-    console.log("Password error:", errors.password);
-    console.log("Email error:", errors.email); }
+    const onFailed = (error) => {
+        console.log("Form submission failed:", error);
+        console.log("Form errors:", errors); // Log errors object
+
+        // Additional console logs to debug errors object
+        console.log("Username error:", errors.userName);
+        console.log("Password error:", errors.password);
+        console.log("Email error:", errors.email);
+    }
 
 
     // const requirments = {
@@ -79,7 +86,7 @@ export default function Registration() {
     //             value : "/^[a-zA-Z0-9]{6,}$/",
     //             message: "username pls"
     //         }
-            
+
     //     },
     //     password: {
     //         required: "password is required",
@@ -112,7 +119,7 @@ export default function Registration() {
     //         message: 'Please enter a valid email address.',
     //       },
     // }
-    
+
 
     const requirements = {
         userName: {
@@ -140,7 +147,7 @@ export default function Registration() {
     //         <form onSubmit={handleSubmit(onSuccess, onFailed)}>
     //             <input ref={userName} name="userName" placeholder="enter your name"  {...register("userName", requirements.userName)}></input>
     //             {errors.userName && <small style={{ color: "red" }}>{errors.userName.message}</small>}
-                
+
     //             {/* <small style={{ color: "red" }}>{errors.userName && errors.userName.message}</small> */}
     //             <br></br>
     //             <input type="password" ref={password} name="password" placeholder="enter password" {...register("password", requirements.password)}></input>
