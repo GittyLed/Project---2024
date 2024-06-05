@@ -10,10 +10,10 @@ namespace Server.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        IAuthUser authUser;
-        public AuthenticationController(IAuthUser authUser)
+        AuthUser authUser;
+        public AuthenticationController(BlManager blManager)
         {
-            this.authUser = authUser;
+            this.authUser = blManager.AuthUser;
         }
 
         [HttpPost("Login")]

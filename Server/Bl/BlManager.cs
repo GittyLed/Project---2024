@@ -14,6 +14,7 @@ namespace BusinessLogicLayer;
 public class BlManager
 {
     public UserBlRepo UserBlRepo { get;}
+    public AuthUser AuthUser { get;}
     public BlManager(string connString)
     {
         ServiceCollection services = new();
@@ -23,5 +24,6 @@ public class BlManager
         services.AddScoped<IEmailService, EmailService>();
         ServiceProvider servicesProvider = services.BuildServiceProvider();
         UserBlRepo = (UserBlRepo)servicesProvider.GetRequiredService<IUserBlRepo>();
+        AuthUser = (AuthUser)servicesProvider.GetRequiredService<IAuthUser>();
     }
 }

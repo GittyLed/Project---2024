@@ -7,6 +7,8 @@ using DataAccessLayer.Models;
 using BusinessLogicLayer;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using BusinessLogicLayer.Api;
+using BusinessLogicLayer.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,7 @@ builder.Services.AddCors(options =>
 DBActions actions = new DBActions(builder.Configuration);
 var connString = actions.GetConnectionString("CoursesDB");
 builder.Services.AddScoped(b => new BlManager(connString));
+/*builder.Services.AddScoped<IAuthUser, AuthUser>();*/
 
 
 var app = builder.Build();
