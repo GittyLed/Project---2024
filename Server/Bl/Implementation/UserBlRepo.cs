@@ -24,7 +24,7 @@ public class UserBlRepo : IUserBlRepo
         this.emailService = emailService;
     }
 
-    public async Task<User> AddUser(UserBl user)
+    public async Task<UserBl> AddUser(UserBl user)
     {
         User newUser = new User();
         newUser.Name = user.Name;
@@ -32,7 +32,8 @@ public class UserBlRepo : IUserBlRepo
         newUser.Password = user.Password;
         await users.AddAsync(newUser);
         await emailService.SendWelcomeEmail(user.Email);
-        return newUser;
+        user.Id = newUser.Id;
+        return user;
     }
 
     public List<UserBl> GetUsers(BaseQueryParams queryParams)
@@ -41,29 +42,21 @@ public class UserBlRepo : IUserBlRepo
         List<UserBl> usersList = new List<UserBl>();
         foreach (var user in pagedUsers.Result)
         {
-            UserBl newUser = new UserBl();
-            newUser.Name = user.Name;
-            newUser.Email = user.Email;
-            newUser.Password = user.Password;
-            usersList.Add(newUser);
+            usersList.Add(new UserBl
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password
+            });
         }
         return usersList;
-    }
-
-    public UserBl GetById(int id)
-    {
-        Task<User> user = users.GetSingleAsync(id);
-        UserBl newUser = new UserBl();
-        newUser.Name = user.Result.Name;
-        newUser.Email = user.Result.Email;
-        newUser.Password = user.Result.Password;
-        return newUser;
     }
 
     public UserBl GetUserByName(string name)
     {
         User user = users.GetByName(name);
-        if(user == null)
+        if (user == null)
         {
             return null;
         }
@@ -74,7 +67,7 @@ public class UserBlRepo : IUserBlRepo
         return newUser;
     }
 
-    
+
 
 
 }
