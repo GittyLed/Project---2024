@@ -21,6 +21,12 @@ namespace Server.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userExists = await authUser.UserExists(model.Username);
+                if (!userExists)
+                {
+                    return Conflict("Username does not exists, pls sign up"); // 409 Conflict for existing user
+                }
+
                 UserBl user = await authUser.AuthenticateUserAsync(model.Username, model.Password);
 
                 if (user != null)
@@ -32,7 +38,7 @@ namespace Server.Controllers
                 }
                 else
                 {
-                    return Unauthorized();
+                    return Conflict("incorrect password.");
                 }
             }
 
@@ -42,24 +48,26 @@ namespace Server.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult<UserBl>> Register([FromBody] UserRegister model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var userExists = await authUser.UserExists(model.Username);
-                if (userExists)
-                    return Ok("username exists");
-                
-                var user = await authUser.CreateUserAsync(model.Username, model.Password, model.Email);
-
-                if (user != null)
-                {
-                    //var token = GenerateToken(user); // Replace with actual token generation logic
-                    return Ok(user);
-                }
-
-                return BadRequest("User creation failed");
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            var userExists = await authUser.UserExists(model.Username);
+            if (userExists)
+            {
+                return Conflict("Username already exists"); // 409 Conflict for existing user
+            }
+
+            var user = await authUser.CreateUserAsync(model.Username, model.Password, model.Email);
+            if (user == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "User creation failed");
+            }
+
+            //var token = GenerateToken(user); // Replace with actual token generation logic
+            return Ok(user);
         }
+
     }
 }

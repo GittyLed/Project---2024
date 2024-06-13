@@ -3,35 +3,29 @@ import { useForm } from "react-hook-form";
 import axios from 'axios'
 
 
-export default function Login(){
+export default function Login() {
     const userName = useRef();
     const password = useRef();
+    const [newUser, setNewUser] = useState({
+        name: null,
+        password: null
+    });
+
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSuccess = (data) => {
-        axios.get(`http://localhost:5217/api/user/${data.userName}`)
-            
-            .then((response) => {
-                if(data.password == response.data.password){
-                    console.log("you logged in");
-                }
-                else{
-                    console.log("password incorrect");
-                }
-
-            })
-            .catch((error) => {
-                console.log(error.message);
-            })
-            .finally(function () {
-                // always executed
-                
-            });
+        setNewUser(newUser.username = data.userName, newUser.password = data.password);
+        const options = {
+            headers: { 'Content-Type': 'application/json' }
+        };
+        axios.post(`http://localhost:5217/api/Authentication/login`, JSON.stringify(newUser), options)
+            .then((res) => {console.log("login")})
+            .catch((err) => { console.log(err) })
     }
-    
+
 
     const onFailed = (error) => { console.log("form failed", error) }
-    
+
     const requirments = {
         userName: {
             required: "name is required"
@@ -49,19 +43,18 @@ export default function Login(){
         }
     }
 
-    return(
+    return (
         <form onSubmit={handleSubmit(onSuccess, onFailed)}>
             <input ref={userName} name="userName" placeholder="username" {...register("userName", requirments.userName)}></input>
-                <small style={{ color: "red" }}>{errors?.userName && errors.userName.message}</small>
-                <br></br>
-                <input type="password" ref={password} name="password" placeholder="password" {...register("password", requirments.password)}></input>
-                <small style={{ color: "red" }}>{errors?.password && errors.password.message}</small>
-                <center>
-                    <button>Submit</button>
-                </center>
+            <small style={{ color: "red" }}>{errors?.userName && errors.userName.message}</small>
+            <br></br>
+            <input type="password" ref={password} name="password" placeholder="password" {...register("password", requirments.password)}></input>
+            <small style={{ color: "red" }}>{errors?.password && errors.password.message}</small>
+            <center>
+                <button>Submit</button>
+            </center>
         </form>
     )
 }
 
 
-    

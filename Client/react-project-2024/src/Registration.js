@@ -26,99 +26,46 @@ export default function Registration() {
         };
         axios.post(`http://localhost:5217/api/Authentication/register`, JSON.stringify(newUser), options)
             .then((response) => {
-                console.log("user signed up")
-                // user signed up 
+                if (response.status === 200) {
+                    console.log("User signed up");
+                    console.log(response);
+                    // Perform actions after successful signup, e.g., redirect to login page or log in the user
+                }
             })
             .catch((error) => {
-                console.log("hi");
-                console.log(error.response.data);
-                userExist.current = false;
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    if (error.response.status === 409) {
+                        console.log("Username already exists. Please log in.");
+                        // Handle the case where the username already exists
+                    } else if (error.response.status === 400) {
+                        console.log("Bad Request: ", error.response.data);
+                        // Handle validation errors or bad request
+                    } else if (error.response.status === 500) {
+                        console.log("Internal Server Error: ", error.response.data);
+                        // Handle server error
+                    } else {
+                        console.log("Error: ", error.response.data);
+                    }
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log("No response received: ", error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error: ", error.message);
+                }
             })
-            .finally(function () {
-                if (!userExist.current) {
-                    //AddUser(data);
-                }
-                else {
-                    //console.log("pls login");
-                }
-
+            .finally(() => {
+                // Actions to perform regardless of success or failure
             });
-
-
     }
-    // function AddUser(data){
-    //     setNewUser(newUser.name = data.userName, newUser.password = data.password, newUser.email = data.email);
-    //     console.log(newUser);
-    //     console.log(JSON.stringify(newUser));
-    //     const options = {
-    //         headers: { 'Content-Type': 'application/json' }
-    //     };
 
-    //     axios.post('http://localhost:5217/api/user', JSON.stringify(newUser), options)
-    //         .then(function (response) {
-    //             console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //             // handle error
-    //             console.log(error);
-    //         })
-    //         .finally(function () {
-    //             // always executed
-    //         });
-    // }
 
     const onFailed = (error) => {
         console.log("Form submission failed:", error);
-        console.log("Form errors:", errors); // Log errors object
-
-        // Additional console logs to debug errors object
-        console.log("Username error:", errors.userName);
-        console.log("Password error:", errors.password);
-        console.log("Email error:", errors.email);
+        console.log("Form errors:", errors);
     }
-
-
-    // const requirments = {
-    //     userName: {
-    //         // required: "name is required",
-    //         // required_pattern : "/^[a-zA-Z0-9]{6,}$/",
-    //         pattern:{
-    //             value : "/^[a-zA-Z0-9]{6,}$/",
-    //             message: "username pls"
-    //         }
-
-    //     },
-    //     password: {
-    //         required: "password is required",
-    //         maxLength: {
-    //             value: 10,
-    //             message: "password can be up to 10 digits"
-    //         },
-    //         minLength: {
-    //             value: 6,
-    //             message: "password should be at least 6 digits"
-    //         }
-    //     },
-    //     email: {
-    //         required: "email is required."
-    //     }
-    // }
-
-    // const requirements = {
-    //     userName: {
-    //         required: true,
-    //         pattern: /^[a-zA-Z0-9_]{4,}$/,
-    //         message: 'Username must be at least 4 characters long and contain only letters, numbers, or underscores.',
-    //       },
-    //       password: {
-    //         pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-    //         message: 'Password must be at least 6 characters long and contain at least one lowercase letter, one uppercase letter, and one digit.',
-    //       },
-    //       email: {
-    //         pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    //         message: 'Please enter a valid email address.',
-    //       },
-    // }
 
 
     const requirements = {
@@ -142,25 +89,7 @@ export default function Registration() {
             },
         },
     };
-    // return (
-    //     <>
-    //         <form onSubmit={handleSubmit(onSuccess, onFailed)}>
-    //             <input ref={userName} name="userName" placeholder="enter your name"  {...register("userName", requirements.userName)}></input>
-    //             {errors.userName && <small style={{ color: "red" }}>{errors.userName.message}</small>}
 
-    //             {/* <small style={{ color: "red" }}>{errors.userName && errors.userName.message}</small> */}
-    //             <br></br>
-    //             <input type="password" ref={password} name="password" placeholder="enter password" {...register("password", requirements.password)}></input>
-    //             <small style={{ color: "red" }}>{errors.password && errors.password.message}</small>
-    //             <br></br>
-    //             <input ref={email} name="email" placeholder="enter your email" {...register("email", requirements.email)} ></input>
-    //             <small>{errors.email && errors.email.message}</small>
-    //             <center>
-    //                 <button type="submit">Submit</button>
-    //             </center>
-    //         </form>
-    //     </>
-    // )
 
     return (
         <>

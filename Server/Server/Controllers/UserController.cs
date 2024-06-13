@@ -43,7 +43,7 @@ namespace Server.Controllers
 
         [EnableCors]
         [HttpPost]
-        public User AddUser([FromBody] UserBl user)
+        public UserBl AddUser([FromBody] UserBl user)
         {
             return users.AddUser(user).Result;
         }

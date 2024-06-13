@@ -35,8 +35,7 @@ namespace BusinessLogicLayer.Implementation
             //maybe add token...
             UserBl user = new UserBl {Name = username, Password = password, Email = email };
             //what to return user or userbl
-            //return await users.AddUser(user);
-            return user;
+            return await users.AddUser(user);
         }
 
         public async Task<bool> UserExists(string username)

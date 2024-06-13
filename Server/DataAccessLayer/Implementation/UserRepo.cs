@@ -53,7 +53,7 @@ public class UserRepo: IUserRepo
     {
         try
         {
-            return context.Users.Where(user => user.Name == username).First();
+            return context.Users.Where(user => user.Name == username).FirstOrDefault();
         }
         catch 
         {

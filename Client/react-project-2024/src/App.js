@@ -13,8 +13,8 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         {/* <Fetch></Fetch> */}
-        <Registration></Registration>
-        {/* <Login></Login> */}
+        {/* <Registration></Registration> */}
+        <Login></Login>
         <a
           className="App-link"
           href="https://reactjs.org"
