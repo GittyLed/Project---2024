@@ -3,6 +3,7 @@ import './App.css';
 import Fetch from './Fetch';
 import Registration from './Registration';
 import Login from './Login';
+import CourseForm from './CourseForm';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         </p>
         {/* <Fetch></Fetch> */}
         {/* <Registration></Registration> */}
-        <Login></Login>
+        {/* <Login></Login> */}
+        <CourseForm></CourseForm>
         <a
           className="App-link"
           href="https://reactjs.org"
