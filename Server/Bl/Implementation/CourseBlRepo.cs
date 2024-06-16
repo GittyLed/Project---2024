@@ -71,6 +71,7 @@ public class CourseBlRepo : ICourseBlRepo
             NumOfMeetings = course.Result.NumOfMeetings,
             FieldId = course.Result.FieldId
         };
+        return null;
 
         //return await newCourse;
     }

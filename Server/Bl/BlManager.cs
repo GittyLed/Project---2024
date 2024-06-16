@@ -15,6 +15,7 @@ public class BlManager
 {
     public UserBlRepo UserBlRepo { get;}
     public AuthUser AuthUser { get;}
+    public CourseBlRepo CourseBlRepo { get;}
     public BlManager(string connString)
     {
         ServiceCollection services = new();
@@ -22,8 +23,10 @@ public class BlManager
         services.AddScoped<IUserBlRepo, UserBlRepo>();
         services.AddScoped<IAuthUser, AuthUser>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<ICourseBlRepo, CourseBlRepo>();
         ServiceProvider servicesProvider = services.BuildServiceProvider();
         UserBlRepo = (UserBlRepo)servicesProvider.GetRequiredService<IUserBlRepo>();
         AuthUser = (AuthUser)servicesProvider.GetRequiredService<IAuthUser>();
+        CourseBlRepo = (CourseBlRepo)servicesProvider.GetRequiredService<ICourseBlRepo>();
     }
 }

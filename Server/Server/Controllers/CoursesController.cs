@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using DataAccessLayer.Api;
 using Common;
 using DataAccessLayer;
+using BusinessLogicLayer.Api;
+using BusinessLogicLayer.Implementation;
+using BusinessLogicLayer;
 
 namespace Server.Controllers
 {
@@ -11,16 +14,21 @@ namespace Server.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        ICoursesRepo course;
-        public CoursesController(ICoursesRepo course)
+        CourseBlRepo courses;
+        public CoursesController(BlManager blManager)
         {
-            this.course = course;
+            courses = blManager.CourseBlRepo;   
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<Course>>> GetAll([FromQuery] BaseQueryParams queryParams)
+        public async Task<ActionResult<List<CourseBl>>> GetAll([FromQuery] BaseQueryParams queryParams)
         {
-            return await course.GetAllAsync(queryParams);
+            return await courses.GetAllCoursesAsync(queryParams);
+        }
+        [HttpPost]
+        public async Task<ActionResult<CourseBl>> AddCourse([FromBody] CourseBl newCourse)
+        {
+            return await courses.CreateCourseAsync(newCourse);
         }
     }
 }

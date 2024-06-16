@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLayer.Api
 {
-    internal class CourseBl
+    public class CourseBl
     {
+        public int CourseId { get; set; }
+
+        public string CourseName { get; set; }
+
+        public int NumOfMeetings { get; set; }
+
+        public int Price { get; set; }
+
+        public int FieldId { get; set; }
     }
 }
