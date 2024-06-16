@@ -10,8 +10,8 @@ function App() {
     <div className="App">
       {/* <Fetch></Fetch> */}
         {/* <Registration></Registration> */}
-        {/* <Login></Login> */}
-        <CourseForm></CourseForm>
+        <Login></Login>
+        {/* <CourseForm></CourseForm> */}
     </div>
   );
 }
