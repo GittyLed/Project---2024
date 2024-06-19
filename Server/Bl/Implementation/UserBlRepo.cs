@@ -31,7 +31,14 @@ public class UserBlRepo : IUserBlRepo
         newUser.Email = user.Email;
         newUser.Password = user.Password;
         await users.AddAsync(newUser);
-        await emailService.SendWelcomeEmail(user.Email);
+        try
+        {
+            await emailService.SendWelcomeEmail(user.Email);
+        }
+        catch (Exception ex)
+        {
+            //throw new Exception("unable to send email. "+ ex.Message);
+        }
         user.Id = newUser.Id;
         return user;
     }
