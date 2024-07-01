@@ -21,7 +21,7 @@ export default function Registration() {
             .then((response) => {
                 if (response.status === 200) {
                     console.log("User signed up");
-                    console.log(response);
+                    navigate("/DisplayCourses");
                 }
             })
             .catch((error) => {

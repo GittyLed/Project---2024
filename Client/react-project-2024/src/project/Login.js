@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
     const [newUser, setNewUser] = useState({
@@ -17,7 +18,10 @@ export default function Login() {
             headers: { 'Content-Type': 'application/json' }
         };
         axios.post(`http://localhost:5217/api/Authentication/login`, JSON.stringify(newUser), options)
-            .then((res) => { console.log("login") })
+            .then((res) => { 
+                console.log("login");
+                Navigate("/DisplayCourses");
+             })
             .catch((err) => { console.log(err) });
     };
 
