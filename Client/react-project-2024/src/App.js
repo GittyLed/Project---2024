@@ -7,7 +7,7 @@ import CourseForm from './project/CourseForm';
 import DisplayCourses from './project/DisplayCourses';
 import { Provider } from 'react-redux';
 import './App.css';
-import Navigator from "./project/Navigators"; 
+import Navigator from "./project/Navigators.js"; 
 
 // function App() {
 //   return (

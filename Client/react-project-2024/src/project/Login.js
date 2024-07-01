@@ -2,9 +2,12 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navigate } from "react-router-dom";
+//import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login() {
+    const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
         name: "",  // Updated property name
         password: ""   // Updated property name
@@ -20,7 +23,8 @@ export default function Login() {
         axios.post(`http://localhost:5217/api/Authentication/login`, JSON.stringify(newUser), options)
             .then((res) => { 
                 console.log("login");
-                Navigate("/DisplayCourses");
+                navigate("/DisplayCourses");
+                //return <Navigate to="/DisplayCourses"/>;
              })
             .catch((err) => { console.log(err) });
     };

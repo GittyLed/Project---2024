@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEdit, FaUserPlus, FaTrash } from "react-icons/fa"; // Import icons from react-icons library
+import { navigate } from 'react-router-dom';
 
 export default function DisplayCourses() {
     const [courses, setCourses] = useState([]);

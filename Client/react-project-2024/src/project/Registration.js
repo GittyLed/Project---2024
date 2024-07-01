@@ -2,8 +2,11 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import { navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Registration() {
+    const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
         name: "",  // Updated property name
         email: "",     // Updated property name
