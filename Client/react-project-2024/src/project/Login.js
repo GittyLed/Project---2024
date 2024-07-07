@@ -9,10 +9,10 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const navigate = useNavigate();
     const [newUser, setNewUser] = useState({
-        name: "",  // Updated property name
-        password: ""   // Updated property name
+        name: "", 
+        password: ""   
     });
-
+    const [errorMessage, setErrorMessage] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSuccess = (data) => {
@@ -24,9 +24,16 @@ export default function Login() {
             .then((res) => { 
                 console.log("login");
                 navigate("/DisplayCourses");
-                //return <Navigate to="/DisplayCourses"/>;
              })
-            .catch((err) => { console.log(err) });
+            .catch(
+            (err) =>  {
+                console.log(err) 
+                if (err.response) {
+                    console.log(err)
+                if (err.response.status === 409) {
+                    console.log("Username does not exists, pls sign up");
+                    setErrorMessage('Username does not exists, pls sign up');
+                }}})
     };
 
     const onFailed = (error) => { console.log("form failed", error) };
@@ -129,9 +136,10 @@ export default function Login() {
                                 />
                                 {errors?.password && <small style={{ color: "red" }}>{errors.password.message}</small>}
                             </div>
+                            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                             <center>
+                                <p>don't have an account? <a href="/Registration">Sign up</a></p>
                                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                                <button type="button" className="btn btn-primary btn-block" onClick={() => navigate('/Registration')}>Go to registration</button>
                             </center>
                         </form>
                     </div>

@@ -12,6 +12,7 @@ export default function Registration() {
         email: "",     // Updated property name
         password: ""   // Updated property name
     });
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -31,6 +32,7 @@ export default function Registration() {
                 if (error.response) {
                     if (error.response.status === 409) {
                         console.log("Username already exists. Please log in.");
+                        setErrorMessage('Username already exists, please log in.');
                     } else if (error.response.status === 400) {
                         console.log("Bad Request: ", error.response.data);
                     } else if (error.response.status === 500) {
@@ -168,9 +170,10 @@ export default function Registration() {
                                 />
                                 {errors?.email && <small style={{ color: "red" }}>{errors.email.message}</small>}
                             </div>
+                            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                             <center>
+                                <p>Already have an account? <a href="/">Log in</a></p>
                                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                                <button type="button" className="btn btn-primary btn-block" onClick={() => navigate('/')}>Go to Log in</button>
                             </center>
                         </form>
                     </div>
