@@ -131,6 +131,7 @@ export default function Login() {
                             </div>
                             <center>
                                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                                <button type="button" className="btn btn-primary btn-block" onClick={() => navigate('/Registration')}>Go to registration</button>
                             </center>
                         </form>
                     </div>

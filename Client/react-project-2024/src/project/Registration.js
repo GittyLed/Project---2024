@@ -170,6 +170,7 @@ export default function Registration() {
                             </div>
                             <center>
                                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                                <button type="button" className="btn btn-primary btn-block" onClick={() => navigate('/')}>Go to Log in</button>
                             </center>
                         </form>
                     </div>
