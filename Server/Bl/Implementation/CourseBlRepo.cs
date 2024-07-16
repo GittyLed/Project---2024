@@ -68,26 +68,42 @@ public class CourseBlRepo : ICourseBlRepo
 
     public async Task<CourseBl> GetCourseByIdAsync(int id)
     {
-        var course = courses.GetSingleAsync(id);
+        var course =  await courses.GetSingleAsync(id);
         if (course == null)
         {
             return null;
         }
         var newCourse = new CourseBl
         {
-            CourseId = course.Result.CourseId,
-            CourseName = course.Result.CourseName,
-            Price = course.Result.Price,
-            NumOfMeetings = course.Result.NumOfMeetings,
-            FieldId = course.Result.FieldId
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Price = course.Price,
+            NumOfMeetings = course.NumOfMeetings,
+            FieldId = course.FieldId
         };
-        return null;
 
-        //return await newCourse;
+        return newCourse;
     }
 
-    public Task<CourseBl> UpdateCourseAsync(CourseBl course)
+    public async Task<CourseBl> UpdateCourseAsync(int courseId, CourseBl course)
     {
-        throw new NotImplementedException();
+        var newCourse = new Course
+        {
+            CourseName = course.CourseName,
+            Price = course.Price,
+            NumOfMeetings = course.NumOfMeetings,
+            FieldId = course.FieldId
+        };
+        var updatedCourse = await courses.UpdateAsync(courseId, newCourse);
+        var updatedCourseBl = new CourseBl
+        {
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Price = course.Price,
+            NumOfMeetings = course.NumOfMeetings,
+            FieldId = course.FieldId
+        };
+
+        return updatedCourseBl;
     }
 }

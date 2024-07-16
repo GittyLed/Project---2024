@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import { Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+
+import '../styles/login.css';
 
 
 export default function Login() {
@@ -57,54 +58,6 @@ export default function Login() {
 
     return (
         <div>
-            <style>
-                {`
-                body {
-                    background-color: #f3f4f6; /* Light background color */
-                }
-                .container {
-                    margin-top: 50px;
-                    max-width: 400px;
-                }
-                .card {
-                    border: none;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
-                .card-header {
-                    background: linear-gradient(90deg, #ff80ab 0%, #ffeb3b 100%);
-                    color: white;
-                    border-radius: 12px 12px 0 0;
-                    text-align: center;
-                }
-                .card-body {
-                    padding: 2rem;
-                }
-                .form-label {
-                    font-weight: bold;
-                    color: #333;
-                }
-                .form-control {
-                    border-radius: 8px;
-                    border: 1px solid #ced4da;
-                    padding: 10px;
-                }
-                .btn-primary {
-                    background-color: #ff80ab;
-                    border-color: #ff80ab;
-                    transition: background-color 0.3s, border-color 0.3s;
-                }
-                .btn-primary:hover {
-                    background-color: #ff4081;
-                    border-color: #ff4081;
-                }
-                .alert-info {
-                    background-color: #fffde7;
-                    color: #ffeb3b;
-                    border-color: #fff9c4;
-                }
-                `}
-            </style>
             <div className="container">
                 <div className="card shadow-sm">
                     <div className="card-header">

@@ -14,6 +14,7 @@ export default function Navigator() {
             <Route exact path="/Registration" element={<Registration/>} />
             <Route exact path="/DisplayCourses" element={<DisplayCourses/>}/>
             <Route exact path="/CourseForm" element={<CourseForm/>}/>
+            <Route exact path="/CourseForm/:courseId" element={<CourseForm/>}/>
         </Routes>
     </BrowserRouter>)
 }

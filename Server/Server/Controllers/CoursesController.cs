@@ -7,6 +7,7 @@ using DataAccessLayer;
 using BusinessLogicLayer.Api;
 using BusinessLogicLayer.Implementation;
 using BusinessLogicLayer;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
@@ -35,6 +36,13 @@ namespace Server.Controllers
         public async Task<ActionResult<CourseBl>> Delete(int courseId)
         {
             return await courses.DeleteCourseAsync(courseId);
+        }
+
+        [HttpPut("{courseId}")]
+        [EnableCors]
+        public async Task<ActionResult<CourseBl>> Update(int courseId, [FromBody] CourseBl newCourse)
+        {
+            return await courses.UpdateCourseAsync(courseId, newCourse);
         }
     }
 }

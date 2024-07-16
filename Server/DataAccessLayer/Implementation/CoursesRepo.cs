@@ -63,7 +63,7 @@ namespace DataAccessLayer.Implementation
 
         public async Task<Course> UpdateAsync(int id, Course entity)
         {
-            Course? course = context.Courses.FirstOrDefault(c => c.CourseId == id);
+            Course course = context.Courses.FirstOrDefault(c => c.CourseId == id);
             if (course != null)
             {
                 course = entity;
