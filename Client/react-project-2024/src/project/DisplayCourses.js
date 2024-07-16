@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaEdit, FaUserPlus, FaTrash } from "react-icons/fa"; // Import icons from react-icons library
+import { FaEdit, FaUserPlus, FaTrash } from "react-icons/fa"; 
 import { navigate } from 'react-router-dom';
 
 export default function DisplayCourses() {
@@ -23,7 +23,7 @@ export default function DisplayCourses() {
     const deleteCourse = (courseId) => {
         axios.delete(`http://localhost:5217/api/courses/${courseId}`)
             .then(() => {
-                fetchCourses(); // Refresh courses after deletion
+                fetchCourses(); 
             })
             .catch((err) => {
                 console.log(err.message);
@@ -31,12 +31,10 @@ export default function DisplayCourses() {
     };
 
     const updateCourse = (courseId) => {
-        // Implement update logic here
         console.log(`Update course with ID: ${courseId}`);
     };
 
     const signUpCourse = (courseId) => {
-        // Implement sign up logic here
         console.log(`Sign up for course with ID: ${courseId}`);
     };
     const myStyle = `
