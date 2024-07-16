@@ -17,7 +17,7 @@ namespace Server.Controllers
         CourseBlRepo courses;
         public CoursesController(BlManager blManager)
         {
-            courses = blManager.CourseBlRepo;   
+            courses = blManager.CourseBlRepo;
         }
 
         [HttpGet]
@@ -29,6 +29,12 @@ namespace Server.Controllers
         public async Task<ActionResult<CourseBl>> AddCourse([FromBody] CourseBl newCourse)
         {
             return await courses.CreateCourseAsync(newCourse);
+        }
+
+        [HttpDelete("{courseId}")]
+        public async Task<ActionResult<CourseBl>> Delete(int courseId)
+        {
+            return await courses.DeleteCourseAsync(courseId);
         }
     }
 }

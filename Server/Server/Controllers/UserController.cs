@@ -26,12 +26,6 @@ namespace Server.Controllers
         {
             return users.GetUsers(queryParams);
         }
-       /* [EnableCors]
-        [HttpGet("{id}")]
-        public UserBl GetUserById(int id)
-        {
-            return users.GetById(id);
-        }*/
 
         [HttpGet("{name}")]
         public ActionResult< UserBl> GetUserByName(string name)
@@ -48,12 +42,6 @@ namespace Server.Controllers
             return users.AddUser(user).Result;
         }
 
-
-        /*[HttpGet]
-        public Task<PagedList<User>> GetUserById([FromQuery] BaseQueryParams queryParams)
-        {
-            return DalManager.Users.GetAllAsync(queryParams);
-        }*/
 
     }
 }

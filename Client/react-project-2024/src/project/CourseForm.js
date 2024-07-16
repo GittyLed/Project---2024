@@ -141,7 +141,7 @@ const CourseForm = () => {
                                     value={formData.numOfMeetings}
                                     onChange={handleChange}
                                     required
-                                    min="0" // Ensures only 0 or positive values are accepted
+                                    min="0" 
                                 />
                             </div>
                             <div className="form-group mb-3">
@@ -154,7 +154,7 @@ const CourseForm = () => {
                                     value={formData.price}
                                     onChange={handleChange}
                                     required
-                                    min="0" // Ensures only 0 or positive values are accepted
+                                    min="0" 
                                 />
                             </div>
                             <div className="form-group mb-3">

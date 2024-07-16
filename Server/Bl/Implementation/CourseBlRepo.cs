@@ -33,9 +33,19 @@ public class CourseBlRepo : ICourseBlRepo
         return course;
     }
 
-    public Task<CourseBl> DeleteCourseAsync(int id)
+    public async Task<CourseBl> DeleteCourseAsync(int id)
     {
-        throw new NotImplementedException();
+
+        var course = await courses.DeleteAsync(id);
+        var newCourse = new CourseBl
+        {
+            CourseId = course.CourseId,
+            CourseName = course.CourseName,
+            Price = course.Price,
+            NumOfMeetings = course.NumOfMeetings,
+            FieldId = course.FieldId
+        };
+        return newCourse;
     }
 
     public async Task<List<CourseBl>> GetAllCoursesAsync(BaseQueryParams queryParams)
